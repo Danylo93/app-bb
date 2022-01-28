@@ -96,8 +96,8 @@ export const Resgate = () => {
             <TextResgate>R$</TextResgate>
           </ResgateWrapper>
           <TransactionList
-            data={transactionsFormatted}
-            keyExtractor={item => item.data}
+            data={listResgate}
+            keyExtractor={item => item.id}
             renderItem={({item}): JSX.Element => {
               return (
                 <>
