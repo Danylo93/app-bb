@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/no-this-in-sfc */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState} from 'react';
@@ -6,6 +10,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
+import {ListItem} from 'react-native-elements/dist/list/ListItem';
 import Button from '../../../components/Button';
 import {
   Container,
@@ -33,7 +38,7 @@ const schema = Yup.object().shape({
     .isValid('Valor não pode ser maior que R$ 40.000,00'),
 });
 
-export const SimulationResgate = () => {
+export const SimulationResgate = ({route}) => {
   const {
     control,
     handleSubmit,
@@ -42,7 +47,7 @@ export const SimulationResgate = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
+  const navigation = useNavigation();
   const [confirmationTransation, setConfirmationTransation] = useState(false);
 
   function handleOpenConfirmationModal() {
@@ -67,12 +72,15 @@ export const SimulationResgate = () => {
           <ResgateWrapper>
             <TextResgate>DADOS DO INVESTIMENTO</TextResgate>
           </ResgateWrapper>
-          <HighlightCard title='Nome' value='djnsn' />
-          <HighlightCard title="Saldo total disponível" value="R$ 75.1000,00" />
+          <HighlightCard title="Nome" value={route.params?.nome} />
+          <HighlightCard
+            title="Saldo total disponível"
+            value={route.params.email}
+          />
           <ResgateWrapper>
             <TextResgate>RESGATE DO SEU JEITO</TextResgate>
           </ResgateWrapper>
-          <HighlightCard title="Ação" value="BBSA3" />
+          <HighlightCard title="Ação" value={route.params.acoes} />
           <HighlightCard title="Saldo Acumulado" value="R$ 40.000,00" />
           <InputForm
             title="Valor a resgatar"

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -53,7 +54,9 @@ export const Resgate = () => {
   }
 
   function handleOpenTransaction() {
-    navigation.navigate('SimulationResgate', {init});
+    navigation.navigate('SimulationResgate', {
+      transactionsFormatted,
+    });
   }
 
   const transactionsFormatted: DataListProps[] = listResgate.map(
@@ -93,12 +96,12 @@ export const Resgate = () => {
             <TextResgate>R$</TextResgate>
           </ResgateWrapper>
           <TransactionList
-            data={listResgate}
+            data={transactionsFormatted}
             keyExtractor={item => item.data}
             renderItem={({item}): JSX.Element => {
               return (
                 <>
-                  <ContainerInvestiment>
+                  <ContainerInvestiment onPress={handleOpenTransaction}>
                     <WrapperInvestiment>
                       <TitleWrapperInvestiment>
                         <TitleInvestiment>{item.nome}</TitleInvestiment>
