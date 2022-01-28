@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState} from 'react';
 import {StatusBar, Modal, Alert} from 'react-native';
@@ -66,7 +67,7 @@ export const SimulationResgate = () => {
           <ResgateWrapper>
             <TextResgate>DADOS DO INVESTIMENTO</TextResgate>
           </ResgateWrapper>
-          <HighlightCard title="Nome" value="Investimento III" />
+          <HighlightCard title='Nome' value='djnsn' />
           <HighlightCard title="Saldo total disponível" value="R$ 75.1000,00" />
           <ResgateWrapper>
             <TextResgate>RESGATE DO SEU JEITO</TextResgate>
@@ -101,7 +102,7 @@ export const SimulationResgate = () => {
         </Content>
       </Content>
       <Modal visible={confirmationTransation}>
-        <Confirmation/>
+        <Confirmation />
       </Modal>
     </Container>
   );

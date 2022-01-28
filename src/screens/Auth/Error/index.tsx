@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import {StatusBar} from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
 import {
   Container,
   Content,
@@ -13,8 +15,12 @@ import {
 } from './styles';
 import Button from '../../../components/Button/index';
 
-export const Error = ({navigation}) => {
-  // const navigation = useNavigation();
+export const Error = () => {
+  const navigation = useNavigation();
+
+  function goHome() {
+    navigation.navigate('Resgate');
+  }
   return (
     <Container>
       <Content>
@@ -32,7 +38,7 @@ export const Error = ({navigation}) => {
             </TextValueResgate>
           </ResgateWrapper>
         </ResgateWrapper>
-        <Button text="CORRIGIR" />
+        <Button text="CORRIGIR" onPress={goHome} />
       </Content>
     </Container>
   );

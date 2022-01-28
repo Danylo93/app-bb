@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components/native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {TouchableOpacity} from 'react-native';
 
-export const Container = styled(TouchableOpacity)`
+export const ContainerInvestiment = styled(TouchableOpacity)`
   background-color: ${({theme}) => theme.Palette.common.white};
   height: ${RFValue(60)}px;
   width: 100%;
@@ -13,32 +13,27 @@ export const Container = styled(TouchableOpacity)`
   border-color: ${({theme}) => theme.Palette.divider};
 `;
 
-export const Header = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const Title = styled.Text`
+export const TitleInvestiment = styled.Text`
   font-family: ${({theme}) => theme.fonts.semiBold};
   font-size: ${RFValue(14)}px;
   color: ${({theme}) => theme.Palette.common.black};
 `;
 
-export const SubTitle = styled.Text`
+export const SubTitleInvestment = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(12)}px;
   color: ${({theme}) => theme.Palette.text.disabled};
 `;
 
-export const Value = styled.Text`
+export const ValueInvestiment = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(14)}px;
   color: ${({theme}) => theme.Palette.common.black};
 `;
 
-export const Wrapper = styled.View`
+export const WrapperInvestiment = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
 
-export const TitleWrapper = styled.View``;
+export const TitleWrapperInvestiment = styled.View``;

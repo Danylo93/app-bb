@@ -9,7 +9,9 @@ const AppStack = createStackNavigator();
 
 const AuthRoutes: React.FC = () => {
   return (
-    <AppStack.Navigator headerMode="none" initialRouteName="Resgate">
+    <AppStack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Resgate">
       <AppStack.Screen name="Resgate" component={Resgate} />
       <AppStack.Screen name="SimulationResgate" component={SimulationResgate} />
     </AppStack.Navigator>

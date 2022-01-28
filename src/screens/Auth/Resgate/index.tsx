@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
@@ -6,6 +7,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {StatusBar, Modal, Alert} from 'react-native';
 import axios from 'axios';
+import {createIconSetFromFontello} from 'react-native-vector-icons';
+import {useNavigation} from '@react-navigation/native';
 import {
   Container,
   Content,
@@ -15,6 +18,12 @@ import {
   SubHeader,
   ResgateWrapper,
   TransactionList,
+  ContainerInvestiment,
+  WrapperInvestiment,
+  TitleWrapperInvestiment,
+  TitleInvestiment,
+  SubTitleInvestment,
+  ValueInvestiment,
 } from './styles';
 import {Confirmation} from '../Confirmation';
 import {
@@ -24,12 +33,17 @@ import {
 import {api} from '../../../services/api';
 
 export interface DataListProps extends CardInvestimentProps {
-  listaInvestimentos: string;
+  nome: string;
+  objetivo: string;
+  saldoAtual: string;
 }
 
-export const Resgate = ({navigation}) => {
+export const Resgate = () => {
   const [confirmationTransation, setConfirmationTransation] = useState(false);
-  const [data, setData] = useState<DataListProps[]>([]);
+  // const [data, setData] = useState<DataListProps[]>([]);
+  const [listResgate, setListResgate] = useState<DataListProps[]>([]);
+  const lista = [0, 1, 2, 3, 6];
+  const navigation = useNavigation();
 
   function handleOpenConfirmationModal() {
     setConfirmationTransation(true);
@@ -38,35 +52,30 @@ export const Resgate = ({navigation}) => {
     setConfirmationTransation(false);
   }
 
-  // const data = async () => {
-  //   const response = await api.get('/ca4ec77d-b941-4477-8a7f-95d4daf7a653');
-  //   setTransactions(response.data);
-  //   console.log(response.data);
-  // };
-
-  async function loadTransactions() {
-    const response = await axios.get(
-      'https://run.mocky.io/v3/ca4ec77d-b941-4477-8a7f-95d4daf7a653',
-    );
-    const transactions = response ? JSON.parse(response) : [];
-
-    const transactionsFormmated: DataListProps[] = transactions.map(
-      (item: DataListProps) => {
-        const nome = String(item.nome);
-
-        return {
-          nome: item.nome,
-          objetivo: item.objetivo,
-          saldoTotal: item.saldoTotal,
-        };
-      },
-    );
-
-    setData(transactionsFormmated);
+  function handleOpenTransaction() {
+    navigation.navigate('SimulationResgate', {init});
   }
 
+  const transactionsFormatted: DataListProps[] = listResgate.map(
+    (item: DataListProps) => {
+      return {
+        nome: item.nome,
+        objetivo: item.objetivo,
+        saldoTotal: item.saldoTotal,
+      };
+    },
+  );
+  // setListResgate(transactionsFormatted);
+
+  const init = async () => {
+    const {data} = await api.get('/');
+
+    setListResgate(data.response.data.listaInvestimentos);
+    console.log(data.response.data.listaInvestimentos);
+  };
+
   useEffect(() => {
-    loadTransactions();
+    init();
   }, []);
 
   return (
@@ -80,13 +89,27 @@ export const Resgate = ({navigation}) => {
 
         <Content>
           <ResgateWrapper>
-            <TextResgate>Investimentos</TextResgate>
+            <TextResgate>INVESTIMENTOS</TextResgate>
             <TextResgate>R$</TextResgate>
           </ResgateWrapper>
           <TransactionList
-            data={data}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => <CardInvestiments data={item} />}
+            data={listResgate}
+            keyExtractor={item => item.data}
+            renderItem={({item}): JSX.Element => {
+              return (
+                <>
+                  <ContainerInvestiment>
+                    <WrapperInvestiment>
+                      <TitleWrapperInvestiment>
+                        <TitleInvestiment>{item.nome}</TitleInvestiment>
+                        <SubTitleInvestment>{item.objetivo}</SubTitleInvestment>
+                      </TitleWrapperInvestiment>
+                      <ValueInvestiment>R$ {item.saldoTotal}</ValueInvestiment>
+                    </WrapperInvestiment>
+                  </ContainerInvestiment>
+                </>
+              );
+            }}
           />
         </Content>
       </Content>

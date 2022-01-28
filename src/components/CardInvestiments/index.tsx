@@ -2,34 +2,39 @@
 import React from 'react';
 
 import {
-  Container,
-  Wrapper,
-  Title,
-  SubTitle,
-  Value,
-  TitleWrapper,
+  ContainerInvestiment,
+  SubTitleInvestment,
+  TitleInvestiment,
+  TitleWrapperInvestiment,
+  ValueInvestiment,
+  WrapperInvestiment
+
 } from './styles';
 
 export interface CardInvestimentProps {
   nome: string;
   objetivo: string;
   saldoTotal: string;
+  onPress: () => void;
 }
 
-interface Props {
-  data: CardInvestimentProps;
-}
-
-export function CardInvestiments({data}: Props) {
+export function CardInvestiments({
+  nome,
+  objetivo,
+  saldoTotal,
+  onPress,
+  ...rest
+}: CardInvestimentProps) {
   return (
-    <Container>
-      <Wrapper>
-        <TitleWrapper>
-          <Title>{data.nome}</Title>
-          <SubTitle>{data.objetivo}</SubTitle>
-        </TitleWrapper>
-        <Value>{data.saldoTotal}</Value>
-      </Wrapper>
-    </Container>
+    <ContainerInvestiment>
+    onPress={onPress} {...rest}>
+      <WrapperInvestiment>
+        <TitleWrapperInvestiment>
+          <TitleInvestiment>{nome}</TitleInvestiment>
+          <SubTitleInvestment>{objetivo}</SubTitleInvestment>
+        </TitleWrapperInvestiment>
+        <ValueInvestiment>{saldoTotal}</ValueInvestiment>
+      </WrapperInvestiment>
+    </ContainerInvestiment>
   );
 }
