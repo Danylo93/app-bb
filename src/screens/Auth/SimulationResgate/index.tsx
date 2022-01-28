@@ -14,9 +14,13 @@ import {
   Header,
   SubHeader,
   ResgateWrapper,
+  SpaceBetween,
+  TextBetween,
 } from './styles';
 import {Confirmation} from '../Confirmation';
 import {Error} from '../Error';
+import {HighlightCard} from '../../../components/HighlightCard';
+import {InputForm} from '../../../components/InputForm';
 
 interface FormData {
   valor: string;
@@ -24,11 +28,20 @@ interface FormData {
 
 const schema = Yup.object().shape({
   valor: Yup.number()
-    .required('Valor de resgate é Obrigatório')
+    .required('O Valor de resgate é Obrigatório')
     .isValid('Valor não pode ser maior que R$ 40.000,00'),
 });
 
 export const SimulationResgate = () => {
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: {errors},
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const [confirmationTransation, setConfirmationTransation] = useState(false);
 
   function handleOpenConfirmationModal() {
@@ -37,9 +50,12 @@ export const SimulationResgate = () => {
   function handleCloseConfirmationModal() {
     setConfirmationTransation(false);
   }
+
+  async function handleRegister(form: FormData) {}
+
   return (
     <Container>
-      <StatusBar translucent backgroundColor="#2a56e6" />
+      <StatusBar translucent backgroundColor="#2342a8" />
       <Content>
         <Header>
           <Title>Resgate</Title>
@@ -50,9 +66,34 @@ export const SimulationResgate = () => {
           <ResgateWrapper>
             <TextResgate>DADOS DO INVESTIMENTO</TextResgate>
           </ResgateWrapper>
+          <HighlightCard title="Nome" value="Investimento III" />
+          <HighlightCard title="Saldo total disponível" value="R$ 75.1000,00" />
           <ResgateWrapper>
             <TextResgate>RESGATE DO SEU JEITO</TextResgate>
           </ResgateWrapper>
+          <HighlightCard title="Ação" value="BBSA3" />
+          <HighlightCard title="Saldo Acumulado" value="R$ 40.000,00" />
+          <InputForm
+            title="Valor a resgatar"
+            name="valor"
+            control={control}
+            placeholder="Digite o valor que deseja resgatar"
+            keyboardType="numeric"
+            error={errors.valor && errors.valor.message}
+          />
+          <SpaceBetween>
+            <TextBetween> </TextBetween>
+          </SpaceBetween>
+          <HighlightCard title="Ação" value="PETR4" />
+          <HighlightCard title="Saldo Acumulado" value="R$ 15.100,00" />
+          <HighlightCard title="Valor a resgatar" value="12.000,00" />
+          <SpaceBetween>
+            <TextBetween> </TextBetween>
+          </SpaceBetween>
+          <HighlightCard title="Valor total a resgatar" value="R$ 19.000,00" />
+          <SpaceBetween>
+            <TextBetween> </TextBetween>
+          </SpaceBetween>
           <Button
             text="CONFIRMAR RESGATE"
             onPress={handleOpenConfirmationModal}
@@ -60,7 +101,7 @@ export const SimulationResgate = () => {
         </Content>
       </Content>
       <Modal visible={confirmationTransation}>
-        <Error />
+        <Confirmation/>
       </Modal>
     </Container>
   );

@@ -11,7 +11,7 @@ export const Container = styled.SafeAreaView`
   flex: 1;
   background: ${({theme}) => theme.Palette.opacity.main};
   align-content: center;
-  align-items: center;
+
 `;
 
 export const Icon = styled(ArrowIcon).attrs({
@@ -23,7 +23,7 @@ export const Icon = styled(ArrowIcon).attrs({
   width: 25px;
   height: 25px;
   margin-left: 33px;
-  margin-top: ${RFValue(30)}px;
+  margin-top: ${RFValue(50)}px;
 `;
 
 export const Content = styled.View`
@@ -31,6 +31,9 @@ export const Content = styled.View`
   margin-top: ${RFValue(20)}px;
   position: absolute;
   background-color: ${({theme}) => theme.Palette.primary};
+  align-self: center;
+  margin-top: ${RFValue(250)}px;
+
 `;
 
 export const Title = styled.Text`

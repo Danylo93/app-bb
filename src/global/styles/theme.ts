@@ -27,7 +27,7 @@ export default {
       main: '#eefd20',
     },
     links: {
-      main: '#2a56e6',
+      main: '#2342a8',
       primary: '#082a9c',
       secondary: '#2E406B',
     },

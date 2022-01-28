@@ -9,7 +9,7 @@ const AppStack = createStackNavigator();
 
 const AuthRoutes: React.FC = () => {
   return (
-    <AppStack.Navigator headerMode="none" initialRouteName="SimulationResgate">
+    <AppStack.Navigator headerMode="none" initialRouteName="Resgate">
       <AppStack.Screen name="Resgate" component={Resgate} />
       <AppStack.Screen name="SimulationResgate" component={SimulationResgate} />
     </AppStack.Navigator>

@@ -14,23 +14,13 @@ export const Container = styled.SafeAreaView`
   align-items: center;
 `;
 
-export const Icon = styled(ArrowIcon).attrs({
-  name: 'keyboard-arrow-left',
-  size: 25,
-})`
-  color: ${({theme}) => theme.Palette.primary};
-  background-color: ${({theme}) => theme.Palette.links.secondary};
-  width: 25px;
-  height: 25px;
-  margin-left: 33px;
-  margin-top: ${RFValue(30)}px;
-`;
-
 export const Content = styled.View`
   width: 90%;
   margin-top: ${RFValue(20)}px;
   position: absolute;
   background-color: ${({theme}) => theme.Palette.primary};
+  align-self: center;
+  margin-top: ${RFValue(250)}px;
 `;
 
 export const Title = styled.Text`
