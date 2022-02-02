@@ -1,3 +1,5 @@
+/* eslint-disable react/no-this-in-sfc */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable eqeqeq */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
@@ -10,6 +12,7 @@ import {StatusBar, Modal, Alert} from 'react-native';
 import axios from 'axios';
 import {createIconSetFromFontello} from 'react-native-vector-icons';
 import {useNavigation} from '@react-navigation/native';
+import {SimulationProps} from '../../../routes/app.routes';
 import {
   Container,
   Content,
@@ -39,12 +42,15 @@ export interface DataListProps extends CardInvestimentProps {
   saldoAtual: string;
 }
 
-export const Resgate = () => {
+export const Resgate = ({route}) => {
   const [confirmationTransation, setConfirmationTransation] = useState(false);
-  // const [data, setData] = useState<DataListProps[]>([]);
+  const [data, setData] = useState<DataListProps[]>([]);
   const [listResgate, setListResgate] = useState<DataListProps[]>([]);
-  const lista = [0, 1, 2, 3, 6];
   const navigation = useNavigation();
+
+  const callBack = item => {
+    setListResgate(item);
+  };
 
   function handleOpenConfirmationModal() {
     setConfirmationTransation(true);
@@ -53,37 +59,53 @@ export const Resgate = () => {
     setConfirmationTransation(false);
   }
 
-  function handleOpenTransaction() {
-    navigation.navigate('SimulationResgate', {
-      transactionsFormatted,
-    });
+  function handleOpenTransaction(item: DataListProps[]) {
+    navigation.navigate('SimulationResgate', {callBack});
   }
 
-  const transactionsFormatted: DataListProps[] = listResgate.map(
-    (item: DataListProps) => {
-      return {
-        nome: item.nome,
-        objetivo: item.objetivo,
-        saldoTotal: item.saldoTotal,
-      };
-    },
-  );
+  // const transactionsFormatted: DataListProps[] = listResgate.map(
+  //   (item: DataListProps) => {
+  //     return {
+  //       nome: item.nome,
+  //       objetivo: item.objetivo,
+  //       saldoTotal: item.saldoTotal,
+  //     };
+  //   },
+  // );
   // setListResgate(transactionsFormatted);
 
   const init = async () => {
     const {data} = await api.get('/');
 
     setListResgate(data.response.data.listaInvestimentos);
-    console.log(data.response.data.listaInvestimentos);
+    console.log('Investimentos:', data.response.data.listaInvestimentos);
   };
 
   useEffect(() => {
     init();
   }, []);
 
+  const acao = async () => {
+    const dataAcoes = await api.get('/');
+
+    const invest = 1 || 2 || 3;
+
+    const obj = JSON.parse(
+      JSON.stringify(dataAcoes.data.response.data.listaInvestimentos[0].acoes),
+    );
+
+    console.log('----------------Objeto inteiro ------------------');
+    console.log(`Todas as açoes do Investimento ${invest} :`, obj);
+    setData(obj);
+  };
+
+  useEffect(() => {
+    acao();
+  }, []);
+
   return (
     <Container>
-      <StatusBar translucent backgroundColor="#2a56e6" />
+      <StatusBar translucent backgroundColor="#2342a8" />
       <Content>
         <Header>
           <Title>Resgate</Title>
@@ -101,7 +123,14 @@ export const Resgate = () => {
             renderItem={({item}): JSX.Element => {
               return (
                 <>
-                  <ContainerInvestiment onPress={handleOpenTransaction}>
+                  <ContainerInvestiment
+                    onPress={() =>
+                      navigation.navigate('SimulationResgate', {
+                        nome: item.nome,
+                        saldoTotal: item.saldoTotal,
+                        data,
+                      })
+                    }>
                     <WrapperInvestiment>
                       <TitleWrapperInvestiment>
                         <TitleInvestiment>{item.nome}</TitleInvestiment>

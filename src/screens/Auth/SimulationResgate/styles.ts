@@ -1,9 +1,17 @@
 import styled from 'styled-components/native';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {Dimensions, Platform, StatusBar} from 'react-native';
+import {
+  Dimensions,
+  Platform,
+  StatusBar,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import {scale, verticalScale} from 'react-native-size-matters';
 import ArrowIcon from 'react-native-vector-icons/MaterialIcons';
+import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
 import logo from '../../../assets/images/logo.png';
+import {DataListProps} from '.';
 
 const deviceWidth = Dimensions.get('window').width;
 const bannerRatio = 682 / 1551;
@@ -94,3 +102,13 @@ export const Logo = styled.Image.attrs({
   height: ${30}px;
   align-self: center;
 `;
+
+export const TransactionList = styled(
+  FlatList as new () => FlatList<DataListProps>,
+).attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    paddingBottom: getBottomSpace(),
+  },
+})``;
+

@@ -1,9 +1,15 @@
+/* eslint-disable no-shadow */
 import styled from 'styled-components/native';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
+import {getBottomSpace} from 'react-native-iphone-x-helper';
 import {FlatList, TouchableOpacity} from 'react-native';
 
 import {DataListProps} from '.';
+import theme from '../../../global/styles/theme';
+
+interface CategoryProps {
+  isActive: boolean;
+}
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -56,6 +62,17 @@ export const TransactionList = styled(
   },
 })``;
 
+export const Category = styled.TouchableOpacity<CategoryProps>`
+  width: 100%;
+  padding: ${RFValue(15)}px;
+
+  flex-direction: row;
+  align-items: center;
+
+  background-color: ${({isActive}) =>
+    isActive ? theme.Palette.divider : theme.Palette.common.white};
+`;
+
 export const ContainerInvestiment = styled(TouchableOpacity)`
   background-color: ${({theme}) => theme.Palette.common.white};
   height: ${RFValue(60)}px;
@@ -79,7 +96,6 @@ export const SubTitleInvestment = styled.Text`
   color: ${({theme}) => theme.Palette.text.disabled};
 `;
 
-
 export const ValueInvestiment = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${RFValue(14)}px;
@@ -92,4 +108,3 @@ export const WrapperInvestiment = styled.View`
 `;
 
 export const TitleWrapperInvestiment = styled.View``;
-
