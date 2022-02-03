@@ -42,7 +42,7 @@ export interface DataListProps {
 }
 
 const schema = Yup.object().shape({
-  valor: Yup.number()
+  valor: Yup.string()
     .required('O Valor de resgate é Obrigatório')
     .isValid('Valor não pode ser maior que R$ 40.000,00'),
 });
@@ -94,14 +94,9 @@ export const SimulationResgate = ({route}) => {
   // }
 
   const acao = async () => {
-    const dataAcoes = await api.get('/');
-
-    const invest = 1;
-
     const obj = JSON.parse(JSON.stringify(route.params.data));
 
     console.log('O que vem da pagina de resgate:', obj);
-    // console.log(`Todas as açoes do Investimento : ${invest}`, obj);
     setData(obj);
   };
 

@@ -18,7 +18,7 @@ export interface TransactionProps extends CardInvestimentProps {
 
 interface Transaction {
   transaction: TransactionProps[];
-  getLockList(): Promise<void>;
+  getTransactionList(): Promise<void>;
 }
 
 export const TransactionContext = createContext<Transaction>({} as Transaction);

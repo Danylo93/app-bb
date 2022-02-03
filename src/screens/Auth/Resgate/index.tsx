@@ -63,17 +63,6 @@ export const Resgate = ({route}) => {
     navigation.navigate('SimulationResgate', {callBack});
   }
 
-  // const transactionsFormatted: DataListProps[] = listResgate.map(
-  //   (item: DataListProps) => {
-  //     return {
-  //       nome: item.nome,
-  //       objetivo: item.objetivo,
-  //       saldoTotal: item.saldoTotal,
-  //     };
-  //   },
-  // );
-  // setListResgate(transactionsFormatted);
-
   const init = async () => {
     const {data} = await api.get('/');
 
