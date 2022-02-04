@@ -36,21 +36,11 @@ import {
 } from '../../../components/CardInvestiments';
 import {api} from '../../../services/api';
 
-export interface DataListProps extends CardInvestimentProps {
-  nome: string;
-  objetivo: string;
-  saldoAtual: string;
-}
-
 export const Resgate = ({route}) => {
   const [confirmationTransation, setConfirmationTransation] = useState(false);
-  const [data, setData] = useState<DataListProps[]>([]);
-  const [listResgate, setListResgate] = useState<DataListProps[]>([]);
+  const [data, setData] = useState([]);
+  const [listResgate, setListResgate] = useState([]);
   const navigation = useNavigation();
-
-  const callBack = item => {
-    setListResgate(item);
-  };
 
   function handleOpenConfirmationModal() {
     setConfirmationTransation(true);
@@ -59,8 +49,8 @@ export const Resgate = ({route}) => {
     setConfirmationTransation(false);
   }
 
-  function handleOpenTransaction(item: DataListProps[]) {
-    navigation.navigate('SimulationResgate', {callBack});
+  function handleOpenTransaction() {
+    navigation.navigate('SimulationResgate');
   }
 
   const init = async () => {
@@ -111,24 +101,19 @@ export const Resgate = ({route}) => {
             keyExtractor={item => item.id}
             renderItem={({item}): JSX.Element => {
               return (
-                <>
-                  <ContainerInvestiment
-                    onPress={() =>
-                      navigation.navigate('SimulationResgate', {
-                        nome: item.nome,
-                        saldoTotal: item.saldoTotal,
-                        data,
-                      })
-                    }>
-                    <WrapperInvestiment>
-                      <TitleWrapperInvestiment>
-                        <TitleInvestiment>{item.nome}</TitleInvestiment>
-                        <SubTitleInvestment>{item.objetivo}</SubTitleInvestment>
-                      </TitleWrapperInvestiment>
-                      <ValueInvestiment>R$ {item.saldoTotal}</ValueInvestiment>
-                    </WrapperInvestiment>
-                  </ContainerInvestiment>
-                </>
+                <CardInvestiments
+                  nome={item.nome}
+                  objetivo={item.objetivo}
+                  saldoTotal={item.saldoTotal}
+                  onPress={async () =>
+                    navigation.navigate('SimulationResgate', {
+                      nome: item.nome,
+                      saldoTotal: item.saldoTotal,
+                      listResgate,
+                      data,
+                    })
+                  }
+                />
               );
             }}
           />

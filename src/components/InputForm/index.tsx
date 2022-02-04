@@ -13,9 +13,6 @@ interface Props extends TextInputProps {
   error: string;
 }
 
-
-
-
 export function InputForm({title, control, name, error, ...rest}: Props) {
   return (
     <Container>

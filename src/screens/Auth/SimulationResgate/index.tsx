@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable no-shadow */
+/* eslint-disable react/no-children-prop */
+/* eslint-disable no-constant-condition */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-this-in-sfc */
@@ -33,21 +37,23 @@ import {InputForm} from '../../../components/InputForm';
 import {api} from '../../../services/api';
 
 interface FormData {
-  valor: string;
-}
-
-export interface DataListProps {
-  nome: string;
-  saldoTotal: string;
+  amount: string;
+  amount1: string;
+  amount2: string;
+  amount3: string;
 }
 
 const schema = Yup.object().shape({
-  valor: Yup.string()
-    .required('O Valor de resgate é Obrigatório')
-    .isValid('Valor não pode ser maior que R$ 40.000,00'),
+  amount: Yup.number()
+    .typeError('Informe um valor numerico')
+    .positive('O valor nao pode ser negativo'),
 });
 
 export const SimulationResgate = ({route}) => {
+  const [valorResgate, setValorResgate] = useState('');
+  const [confirmationTransation, setConfirmationTransation] = useState(false);
+  const [data, setData] = useState([]);
+
   const {
     control,
     handleSubmit,
@@ -56,9 +62,7 @@ export const SimulationResgate = ({route}) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const navigation = useNavigation();
-  const [confirmationTransation, setConfirmationTransation] = useState(false);
-  const [data, setData] = useState([]);
+
   function handleOpenConfirmationModal() {
     setConfirmationTransation(true);
   }
@@ -66,45 +70,41 @@ export const SimulationResgate = ({route}) => {
     setConfirmationTransation(false);
   }
 
-  // const transactionsFormatted: DataListProps[] = data.map(
-  //   (item: DataListProps) => {
-  //     return {
-  //       nome: item.nome,
-  //       objetivo: item.objetivo,
-  //       saldoTotal: item.saldoTotal,
-  //     };
-  //   },
-  // );
-
-  // const loadData = useCallback(async () => {
-  //   const {dados} = route.params;
-  //   // setData(dados);
-
-  // function SwitchCase(nome) {
-  //   switch (nome.value) {
-  //     case 'INVESTIMENTO I':
-  //       return 0;
-  //     case 'INVESTIMENTO II':
-  //       return 1;
-  //     case 'INVESTIMENTO III':
-  //       return 3;
-  //     default:
-  //       return 6;
-  //   }
-  // }
+  const item1 = route.params.data[0].acoes;
+  const item2 = route.params.data.acoes;
+  const item3 = route.params.data[2].acoes;
 
   const acao = async () => {
-    const obj = JSON.parse(JSON.stringify(route.params.data));
+    const item = JSON.parse(JSON.stringify(route.params.data));
 
-    console.log('O que vem da pagina de resgate:', obj);
-    setData(obj);
+    // const obj = JSON.parse(JSON.stringify(route.params.listResgate[1].acoes));
+
+    console.log('O que vem da pagina de resgate:', route.params.data);
+    setData(item);
   };
 
   useEffect(() => {
     acao();
   }, []);
 
-  async function handleRegister(form: FormData) {}
+  async function handleRegister(form: FormData) {
+    const newTransaction = {
+      amount: form.amount,
+    };
+
+    try {
+      const dataFormatted = [newTransaction];
+
+      setValorResgate(JSON.stringify(dataFormatted));
+
+      reset();
+      setValorResgate('');
+      setConfirmationTransation(true);
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Nao foi possivel Resgatar o valor');
+    }
+  }
 
   return (
     <Container>
@@ -129,10 +129,8 @@ export const SimulationResgate = ({route}) => {
 
           <TransactionList
             data={data}
-            keyExtractor={item => {
-              item.id;
-            }}
-            renderItem={({item}): JSX.Element => {
+            keyExtractor={item => item.id}
+            renderItem={({item}) => {
               return (
                 <>
                   <HighlightCard title="Ação" value={item.nome} />
@@ -142,11 +140,11 @@ export const SimulationResgate = ({route}) => {
                   />
                   <InputForm
                     title="Valor a resgatar"
-                    name="valor"
+                    name="amount"
                     control={control}
                     placeholder="Digite o valor que deseja resgatar"
                     keyboardType="numeric"
-                    error={errors.valor && errors.valor.message}
+                    error={errors.amount && errors.amount.message}
                   />
                   <SpaceBetween>
                     <TextBetween />
@@ -161,12 +159,12 @@ export const SimulationResgate = ({route}) => {
           </SpaceBetween>
           <Button
             text="CONFIRMAR RESGATE"
-            onPress={handleOpenConfirmationModal}
+            onPress={handleSubmit(handleRegister)}
           />
         </Content>
       </Content>
       <Modal visible={confirmationTransation}>
-        <Confirmation />
+        {!control === true ? <Confirmation /> : <Error />}
       </Modal>
     </Container>
   );

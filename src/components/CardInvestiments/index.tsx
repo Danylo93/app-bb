@@ -7,8 +7,7 @@ import {
   TitleInvestiment,
   TitleWrapperInvestiment,
   ValueInvestiment,
-  WrapperInvestiment
-
+  WrapperInvestiment,
 } from './styles';
 
 export interface CardInvestimentProps {
@@ -23,17 +22,15 @@ export function CardInvestiments({
   objetivo,
   saldoTotal,
   onPress,
-  ...rest
 }: CardInvestimentProps) {
   return (
-    <ContainerInvestiment>
-    onPress={onPress} {...rest}>
+    <ContainerInvestiment onPress={onPress}>
       <WrapperInvestiment>
         <TitleWrapperInvestiment>
           <TitleInvestiment>{nome}</TitleInvestiment>
           <SubTitleInvestment>{objetivo}</SubTitleInvestment>
         </TitleWrapperInvestiment>
-        <ValueInvestiment>{saldoTotal}</ValueInvestiment>
+        <ValueInvestiment>R$ {saldoTotal}</ValueInvestiment>
       </WrapperInvestiment>
     </ContainerInvestiment>
   );

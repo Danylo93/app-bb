@@ -1,9 +1,11 @@
 import styled, {css} from 'styled-components/native';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {Feather} from '@expo/vector-icons';
 
+interface IDProps {
+  id: '1' | '2' | '3' | '4';
+}
 
-export const Container = styled.View`
+export const Container = styled.View<IDProps>`
   background-color: ${({theme}) => theme.Palette.common.white};
   height: ${RFValue(40)}px;
   width: 100%;
@@ -13,8 +15,6 @@ export const Container = styled.View`
   border-radius: 2px;
   border-width: 1px;
   border-color: ${({theme}) => theme.Palette.divider};
-
-
 `;
 
 export const Header = styled.View`
@@ -38,5 +38,3 @@ export const Wrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
-
-

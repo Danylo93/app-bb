@@ -8,10 +8,10 @@ export const Container = styled.View`
 
 export const Error = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${RFValue(13)}px;
-  color: ${({theme}) => theme.Palette.warning.main};
+  font-size: ${RFValue(10)}px;
+  color: ${({theme}) => theme.Palette.error.main};
 
-  margin: 7px 0;
+  margin: 3px 10px;
 `;
 
 export const Title = styled.Text`
