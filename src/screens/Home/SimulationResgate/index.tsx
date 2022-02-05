@@ -79,6 +79,7 @@ export const SimulationResgate = ({route}) => {
 
     console.log('O que vem da api:', obj);
     setData(obj);
+
   };
 
   useEffect(() => {
@@ -162,7 +163,7 @@ export const SimulationResgate = ({route}) => {
         </Content>
       </Content>
       <Modal visible={confirmationTransation}>
-        {!control === true ? <Confirmation /> : <Error />}
+        {errors === true ? <Confirmation /> : <Error />}
       </Modal>
     </Container>
   );

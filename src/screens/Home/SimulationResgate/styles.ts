@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {FlatList} from 'react-native';
+import {FlatList, ScrollView} from 'react-native';
 import {getBottomSpace} from 'react-native-iphone-x-helper';
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.ScrollView`
   flex: 1;
   background: ${({theme}) => theme.Palette.background.input};
 `;

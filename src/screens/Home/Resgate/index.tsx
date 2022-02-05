@@ -59,8 +59,14 @@ export const Resgate = ({route}) => {
       JSON.stringify(dataAcoes.data.response.data.listaInvestimentos),
     );
 
+    console.log('----------------Indicador de Carencia ------------------');
+    console.log(
+      `Indicador de Carencia:`,
+      dataAcoes.data.response.data.listaInvestimentos.indicadorCarencia,
+    );
+
     console.log('----------------Objeto inteiro ------------------');
-    console.log(`Todas as açoes do Investimento ${invest} :`, obj);
+    console.log(`Todas as açoes do Investimento:`, obj);
     setData(obj);
   };
 
