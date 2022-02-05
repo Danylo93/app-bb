@@ -1,27 +1,9 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useTheme} from 'styled-components';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Resgate} from '../screens/Auth/Resgate/index';
-import {SimulationResgate} from '../screens/Auth/SimulationResgate/index';
+import {Resgate} from '../screens/Home/Resgate/index';
+import {SimulationResgate} from '../screens/Home/SimulationResgate/index';
 
 const AppStack = createStackNavigator();
-
-type RootStackParamList = {
-  SimulationResgate: undefined;
-  Resgate: undefined;
-};
-
-export type SimulationProps = NativeStackScreenProps<
-  RootStackParamList,
-  'SimulationResgate'
->;
-
-export type ResgateProps = NativeStackScreenProps<
-  RootStackParamList,
-  'Resgate'
->;
 
 const AuthRoutes: React.FC = () => {
   return (

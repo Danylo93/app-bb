@@ -9,13 +9,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar, Modal, Alert} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import {useForm} from 'react-hook-form';
-import {useNavigation} from '@react-navigation/native';
-import {ListItem} from 'react-native-elements/dist/list/ListItem';
 import Button from '../../../components/Button';
 
 import {
@@ -53,6 +51,7 @@ export const SimulationResgate = ({route}) => {
   const [valorResgate, setValorResgate] = useState('');
   const [confirmationTransation, setConfirmationTransation] = useState(false);
   const [data, setData] = useState([]);
+  const [simulation, setSimulation] = useState([]);
 
   const {
     control,
@@ -70,17 +69,16 @@ export const SimulationResgate = ({route}) => {
     setConfirmationTransation(false);
   }
 
-  const item1 = route.params.data[0].acoes;
-  const item2 = route.params.data.acoes;
-  const item3 = route.params.data[2].acoes;
-
   const acao = async () => {
-    const item = JSON.parse(JSON.stringify(route.params.data));
+    // const item = JSON.parse(JSON.stringify(route.params.data));
+    const dadosApi = await api.get('/');
 
-    // const obj = JSON.parse(JSON.stringify(route.params.listResgate[1].acoes));
+    const obj = JSON.parse(
+      JSON.stringify(dadosApi.data.response.data.listaInvestimentos[0].acoes),
+    );
 
-    console.log('O que vem da pagina de resgate:', route.params.data);
-    setData(item);
+    console.log('O que vem da api:', obj);
+    setData(obj);
   };
 
   useEffect(() => {

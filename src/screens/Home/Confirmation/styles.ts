@@ -3,7 +3,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {Dimensions, Platform, StatusBar} from 'react-native';
 import {scale, verticalScale} from 'react-native-size-matters';
 import ArrowIcon from 'react-native-vector-icons/MaterialIcons';
-import logo from '../../../assets/images/logo.png';
+
 
 const deviceWidth = Dimensions.get('window').width;
 const bannerRatio = 682 / 1551;
@@ -67,19 +67,4 @@ export const TextResgate = styled.Text`
   margin-top: 20px;
   text-align: left;
 `;
-export const SubTextLogin = styled.Text`
-  color: ${({theme}) => theme.Palette.text.primary};
-  font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${RFValue(15)}px;
-  margin-top: 3px;
-  text-align: center;
-`;
 
-export const Logo = styled.Image.attrs({
-  source: logo,
-  resizeMode: 'contain',
-})`
-  width: ${106}px;
-  height: ${30}px;
-  align-self: center;
-`;

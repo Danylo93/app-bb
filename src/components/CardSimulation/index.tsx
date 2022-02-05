@@ -3,14 +3,9 @@ import React from 'react';
 
 import {
   ContainerSimulation,
-  Content,
   SimulationWrapper,
-  SpaceBetween,
-  SubTextSimulation,
   SubTitle,
-  TextBetween,
   TextSimulation,
-  TransactionList,
 } from './styles';
 
 export interface CardSimulationProps {

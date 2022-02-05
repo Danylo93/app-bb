@@ -7,12 +7,9 @@
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useCallback, useEffect, useState} from 'react';
-import {StatusBar, Modal, Alert} from 'react-native';
-import axios from 'axios';
-import {createIconSetFromFontello} from 'react-native-vector-icons';
+import React, {useEffect, useState} from 'react';
+import {StatusBar} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {SimulationProps} from '../../../routes/app.routes';
 import {
   Container,
   Content,
@@ -21,19 +18,8 @@ import {
   Header,
   SubHeader,
   ResgateWrapper,
-  TransactionList,
-  ContainerInvestiment,
-  WrapperInvestiment,
-  TitleWrapperInvestiment,
-  TitleInvestiment,
-  SubTitleInvestment,
-  ValueInvestiment,
 } from './styles';
-import {Confirmation} from '../Confirmation';
-import {
-  CardInvestiments,
-  CardInvestimentProps,
-} from '../../../components/CardInvestiments';
+import {CardInvestiments} from '../../../components/CardInvestiments';
 import {api} from '../../../services/api';
 
 export const Resgate = ({route}) => {
@@ -70,7 +56,7 @@ export const Resgate = ({route}) => {
     const invest = 1 || 2 || 3;
 
     const obj = JSON.parse(
-      JSON.stringify(dataAcoes.data.response.data.listaInvestimentos[0].acoes),
+      JSON.stringify(dataAcoes.data.response.data.listaInvestimentos),
     );
 
     console.log('----------------Objeto inteiro ------------------');
@@ -96,27 +82,20 @@ export const Resgate = ({route}) => {
             <TextResgate>INVESTIMENTOS</TextResgate>
             <TextResgate>R$</TextResgate>
           </ResgateWrapper>
-          <TransactionList
-            data={listResgate}
-            keyExtractor={item => item.id}
-            renderItem={({item}): JSX.Element => {
-              return (
-                <CardInvestiments
-                  nome={item.nome}
-                  objetivo={item.objetivo}
-                  saldoTotal={item.saldoTotal}
-                  onPress={async () =>
-                    navigation.navigate('SimulationResgate', {
-                      nome: item.nome,
-                      saldoTotal: item.saldoTotal,
-                      listResgate,
-                      data,
-                    })
-                  }
-                />
-              );
-            }}
-          />
+          {listResgate.map(item => (
+            <CardInvestiments
+              nome={item.nome}
+              objetivo={item.objetivo}
+              saldoTotal={item.saldoTotal}
+              onPress={async () =>
+                navigation.navigate('SimulationResgate', {
+                  nome: item.nome,
+                  saldoTotal: item.saldoTotal,
+                  data,
+                })
+              }
+            />
+          ))}
         </Content>
       </Content>
     </Container>

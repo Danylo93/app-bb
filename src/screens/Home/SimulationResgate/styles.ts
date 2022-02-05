@@ -1,24 +1,12 @@
 import styled from 'styled-components/native';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {
-  Dimensions,
-  Platform,
-  StatusBar,
-  FlatList,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import {scale, verticalScale} from 'react-native-size-matters';
-import ArrowIcon from 'react-native-vector-icons/MaterialIcons';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
-import {DataListProps} from '.';
+import {FlatList} from 'react-native';
+import {getBottomSpace} from 'react-native-iphone-x-helper';
 
-
-export const Container = styled.ScrollView`
+export const Container = styled.SafeAreaView`
   flex: 1;
   background: ${({theme}) => theme.Palette.background.input};
 `;
-
 
 export const Content = styled.View`
   margin-top: ${RFValue(20)}px;
@@ -73,20 +61,10 @@ export const TextResgate = styled.Text`
   margin-bottom: 10px;
   text-align: left;
 `;
-export const SubTextLogin = styled.Text`
-  color: ${({theme}) => theme.Palette.text.primary};
-  font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${RFValue(15)}px;
-  margin-top: 3px;
-  text-align: center;
-`;
 
-export const TransactionList = styled(
-  FlatList as new () => FlatList<DataListProps>,
-).attrs({
+export const TransactionList = styled(FlatList as new () => FlatList).attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     paddingBottom: getBottomSpace(),
   },
 })``;
-
