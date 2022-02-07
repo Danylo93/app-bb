@@ -51,7 +51,7 @@ export const SimulationResgate = ({route, props}) => {
   const [valorResgate, setValorResgate] = useState('');
   const [confirmationTransation, setConfirmationTransation] = useState(false);
   const [data, setData] = useState([]);
-  const [simulation, setSimulation] = useState(0);
+  const [simulation, setSimulation] = useState('');
 
   const {
     control,
@@ -81,7 +81,6 @@ export const SimulationResgate = ({route, props}) => {
 
     console.log('O que vem da api:', obj);
     setData(obj);
-
   };
 
   useEffect(() => {
@@ -142,7 +141,6 @@ export const SimulationResgate = ({route, props}) => {
                   <InputForm
                     title="Valor a resgatar"
                     name="amount"
-                    onChangeText={text => props.setFieldValue('number', text)}
                     control={control}
                     placeholder="Digite o valor que deseja resgatar"
                     keyboardType="numeric"
@@ -178,3 +176,4 @@ export const SimulationResgate = ({route, props}) => {
     </Container>
   );
 };
+
