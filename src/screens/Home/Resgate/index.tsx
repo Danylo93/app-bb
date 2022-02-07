@@ -42,8 +42,12 @@ export const Resgate = ({route}) => {
   const init = async () => {
     const {data} = await api.get('/');
 
-    setListResgate(data.response.data.listaInvestimentos);
-    console.log('Investimentos:', data.response.data.listaInvestimentos);
+    const resgates = JSON.parse(
+      JSON.stringify(data.response.data.listaInvestimentos),
+    );
+
+    setListResgate(resgates);
+    // console.log('Investimentos:', data.response.data.listaInvestimentos);
   };
 
   useEffect(() => {
@@ -56,28 +60,30 @@ export const Resgate = ({route}) => {
     const invest = 1 || 2 || 3;
 
     const obj = JSON.parse(
-      JSON.stringify(dataAcoes.data.response.data.listaInvestimentos),
+      JSON.stringify(
+        dataAcoes.data.response.data.listaInvestimentos[0].indicadorCarencia ===
+          'N',
+      ),
     );
 
-    const carencia =
-      dataAcoes.data.response.data.listaInvestimentos[0].indicadorCarencia ===
-      'N';
+    const carencia = obj.filter(item => typeof obj[item] === 'boolean');
+    console.log('filtrando os dados:', carencia);
 
-    console.log('----------------Indicador de Carencia ------------------');
-    console.log(
-      `Indicador de Carencia:`,
-      dataAcoes.data.response.data.listaInvestimentos[0].indicadorCarencia ===
-        'N',
-    );
+    // console.log('----------------Indicador de Carencia ------------------');
+    // console.log(
+    //   `Indicador de Carencia:`,
+    //   dataAcoes.data.response.data.listaInvestimentos[0].indicadorCarencia ===
+    //     'N',
+    // );
 
-    console.log('----------------Objeto inteiro ------------------');
-    console.log(`Todas as açoes do Investimento:`, obj);
+    // console.log('----------------Objeto inteiro ------------------');
+    // console.log(`Todas as açoes do Investimento:`, obj);
 
-    if (carencia === false) {
-      console.log('Vai aparecer somente os rendimentos sem carencia');
-    } else {
-      console.log('Vai aparecer somente os rendimentos com carencia');
-    }
+    // if (carencia === false) {
+    //   console.log('Vai aparecer somente os rendimentos sem carencia');
+    // } else {
+    //   console.log('Vai aparecer somente os rendimentos com carencia');
+    // }
 
     setData(obj);
   };

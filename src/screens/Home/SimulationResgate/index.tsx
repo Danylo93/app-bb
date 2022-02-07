@@ -47,11 +47,11 @@ const schema = Yup.object().shape({
     .positive('O valor nao pode ser negativo'),
 });
 
-export const SimulationResgate = ({route}) => {
+export const SimulationResgate = ({route, props}) => {
   const [valorResgate, setValorResgate] = useState('');
   const [confirmationTransation, setConfirmationTransation] = useState(false);
   const [data, setData] = useState([]);
-  const [simulation, setSimulation] = useState([]);
+  const [simulation, setSimulation] = useState(0);
 
   const {
     control,
@@ -72,13 +72,16 @@ export const SimulationResgate = ({route}) => {
   const acao = async () => {
     // const item = JSON.parse(JSON.stringify(route.params.data));
     const dadosApi = await api.get('/');
-
     const obj = JSON.parse(
       JSON.stringify(dadosApi.data.response.data.listaInvestimentos[0].acoes),
     );
 
+    const carencia = obj.filter(item => typeof obj[item] === item.nome);
+    console.log('filtrando os dados:', carencia);
+
     console.log('O que vem da api:', obj);
     setData(obj);
+
   };
 
   useEffect(() => {
@@ -139,6 +142,7 @@ export const SimulationResgate = ({route}) => {
                   <InputForm
                     title="Valor a resgatar"
                     name="amount"
+                    onChangeText={text => props.setFieldValue('number', text)}
                     control={control}
                     placeholder="Digite o valor que deseja resgatar"
                     keyboardType="numeric"
@@ -151,7 +155,10 @@ export const SimulationResgate = ({route}) => {
               );
             }}
           />
-          <HighlightCard title="Valor total a resgatar" value="R$ 19.000,00" />
+          <HighlightCard
+            title="Valor total a resgatar"
+            value={`R$ ${route.params.saldoTotal}`}
+          />
           <SpaceBetween>
             <TextBetween />
           </SpaceBetween>
@@ -162,7 +169,7 @@ export const SimulationResgate = ({route}) => {
         </Content>
       </Content>
       <Modal visible={confirmationTransation}>
-        {errors === true ? (
+        {simulation === errors ? (
           <Confirmation />
         ) : (
           <Error closeError={handleCloseConfirmationModal} />

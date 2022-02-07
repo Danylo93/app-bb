@@ -1,24 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import {StatusBar} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {
-  Container,
-  Content,
-  Title,
-  TextResgate,
-  Header,
-  SubHeader,
-  ResgateWrapper,
-} from './styles';
+import {Container, Content, Title, TextResgate, ResgateWrapper} from './styles';
 import Button from '../../../components/Button/index';
 
 export const Confirmation = () => {
   const navigation = useNavigation();
 
   function goHome() {
-    navigation.navigate('Resgate');
+    navigation.goBack();
   }
 
   return (
