@@ -59,14 +59,26 @@ export const Resgate = ({route}) => {
       JSON.stringify(dataAcoes.data.response.data.listaInvestimentos),
     );
 
+    const carencia =
+      dataAcoes.data.response.data.listaInvestimentos[0].indicadorCarencia ===
+      'N';
+
     console.log('----------------Indicador de Carencia ------------------');
     console.log(
       `Indicador de Carencia:`,
-      dataAcoes.data.response.data.listaInvestimentos.indicadorCarencia,
+      dataAcoes.data.response.data.listaInvestimentos[0].indicadorCarencia ===
+        'N',
     );
 
     console.log('----------------Objeto inteiro ------------------');
     console.log(`Todas as açoes do Investimento:`, obj);
+
+    if (carencia === false) {
+      console.log('Vai aparecer somente os rendimentos sem carencia');
+    } else {
+      console.log('Vai aparecer somente os rendimentos com carencia');
+    }
+
     setData(obj);
   };
 

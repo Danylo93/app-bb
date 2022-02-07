@@ -83,7 +83,7 @@ export const TextResgate = styled.Text`
 export const TextValueResgate = styled.Text`
   color: ${({theme}) => theme.Palette.links.primary};
   font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${RFValue(12)}px;
+  font-size: ${RFValue(10)}px;
   text-align: left;
 `;
 export const SubTextLogin = styled.Text`
