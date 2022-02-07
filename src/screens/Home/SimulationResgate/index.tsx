@@ -79,7 +79,6 @@ export const SimulationResgate = ({route}) => {
 
     console.log('O que vem da api:', obj);
     setData(obj);
-
   };
 
   useEffect(() => {
@@ -158,12 +157,16 @@ export const SimulationResgate = ({route}) => {
           </SpaceBetween>
           <Button
             text="CONFIRMAR RESGATE"
-            onPress={handleSubmit(handleRegister)}
+            onPress={handleSubmit(handleRegister, {data})}
           />
         </Content>
       </Content>
       <Modal visible={confirmationTransation}>
-        {errors === true ? <Confirmation /> : <Error />}
+        {errors === true ? (
+          <Confirmation />
+        ) : (
+          <Error closeError={handleCloseConfirmationModal} />
+        )}
       </Modal>
     </Container>
   );

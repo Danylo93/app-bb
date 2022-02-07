@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
@@ -15,30 +16,30 @@ import {
 } from './styles';
 import Button from '../../../components/Button/index';
 
-export const Error = () => {
-  const navigation = useNavigation();
+interface Props {
+  closeError: () => void;
+}
 
-  function goHome() {
-    navigation.navigate('Resgate');
-  }
+export const Error = ({closeError}: Props) => {
+
   return (
     <Container>
       <Content>
         <Title>DADOS INVÁLIDOS</Title>
         <ResgateWrapper>
           <TextResgate>
-            Você preencheu um ou nais campos com valor acima do permitido:
+            Você preencheu um ou mais campos com valor acima do permitido:
           </TextResgate>
           <ResgateWrapper>
-            <TextValueResgate>
-              BBAS3: Valor máximo de R$ 11.049,28
+            {/* <TextValueResgate>
+              {route.params.nome}: Valor máximo de R$ {route.params.percentual}
             </TextValueResgate>
             <TextValueResgate>
-              VALE3: Valor máximo de R$ 8.143,44
-            </TextValueResgate>
+              {route.params.nome}: Valor máximo de R$ {route.params.percentual}
+            </TextValueResgate> */}
           </ResgateWrapper>
         </ResgateWrapper>
-        <Button text="CORRIGIR" onPress={goHome} />
+        <Button text="CORRIGIR" onPress={closeError} />
       </Content>
     </Container>
   );
