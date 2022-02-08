@@ -18,6 +18,7 @@ import {
   Header,
   SubHeader,
   ResgateWrapper,
+  TransactionList,
 } from './styles';
 import {CardInvestiments} from '../../../components/CardInvestiments';
 import {api} from '../../../services/api';
@@ -47,7 +48,7 @@ export const Resgate = ({route}) => {
     );
 
     setListResgate(resgates);
-    // console.log('Investimentos:', data.response.data.listaInvestimentos);
+    console.log('Investimentos:', resgates);
   };
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export const Resgate = ({route}) => {
     );
 
     const carencia = obj.filter(item => typeof obj[item] === 'boolean');
-    console.log('filtrando os dados:', carencia);
+    // console.log('filtrando os dados:', carencia);
 
     // console.log('----------------Indicador de Carencia ------------------');
     // console.log(
@@ -106,20 +107,30 @@ export const Resgate = ({route}) => {
             <TextResgate>INVESTIMENTOS</TextResgate>
             <TextResgate>R$</TextResgate>
           </ResgateWrapper>
-          {listResgate.map(item => (
-            <CardInvestiments
-              nome={item.nome}
-              objetivo={item.objetivo}
-              saldoTotal={item.saldoTotal}
-              onPress={async () =>
-                navigation.navigate('SimulationResgate', {
-                  nome: item.nome,
-                  saldoTotal: item.saldoTotal,
-                  data,
-                })
+          <TransactionList
+            data={listResgate}
+            keyExtractor={item => item.id}
+            renderItem={({item, index}) => {
+              if (item.indicadorCarencia === 'N') {
+                return (
+                  <CardInvestiments
+                    nome={item.nome}
+                    objetivo={item.objetivo}
+                    saldoTotal={item.saldoTotal}
+                    onPress={async () =>
+                      navigation.navigate('SimulationResgate', {
+                        id: item.id,
+                        nome: item.nome,
+                        saldoTotal: item.saldoTotal,
+                        data,
+                      })
+                    }
+                  />
+                );
               }
-            />
-          ))}
+              ('Não Foi Possível carregar os dados.');
+            }}
+          />
         </Content>
       </Content>
     </Container>
