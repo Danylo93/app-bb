@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-shadow */
@@ -17,6 +18,7 @@ import * as Yup from 'yup';
 import {useForm} from 'react-hook-form';
 import {useFormik} from 'formik';
 import CurrencyInput from 'react-native-currency-input';
+import {isTemplateLiteral} from '@babel/types';
 import Button from '../../../components/Button';
 import {
   Container,
@@ -54,14 +56,13 @@ export const SimulationResgate = ({route, props}) => {
       .required('Por favor informe o valor que deseja resgatar')
       .positive('deve ser um número positivo')
       .typeError('Informe um valor númerico')
-      .lessThan(valorTeste,
+      .lessThan(
+        valorTeste,
         `Valor deve ser menor que R$ ${Number(valorTeste).toFixed(
           2,
         )}`.toString(),
       ),
   });
-
-
 
   const valorRef = useRef<RNTextInput>(null);
   const [valorResgate, setValorResgate] = useState('');
@@ -101,8 +102,6 @@ export const SimulationResgate = ({route, props}) => {
   function handleCloseConfirmationModal() {
     setConfirmationTransation(false);
   }
-
-
 
   const acao = async () => {
     // const item = JSON.parse(JSON.stringify(route.params.data));
@@ -147,9 +146,7 @@ export const SimulationResgate = ({route, props}) => {
   //     Alert.alert('Nao foi possivel Resgatar o valor');
   //   }
 
-
   // }
-
 
   return (
     <Container>
@@ -185,23 +182,28 @@ export const SimulationResgate = ({route, props}) => {
                       (route.params.saldoTotal * item.percentual) / 100,
                     ).toFixed(2)}`.toString()}
                   />
-                  <Input
-                    title="Valor a resgatar"
-                    ref={valorRef}
-                    onChangeText={handleChange('amount')}
-                    onBlur={handleBlur('amount')}
-                    value={values.amount}
-                    error={errors.amount}
-                    touched={touched.amount}
-                    placeholder="Digite o valor que deseja resgatar"
-                    keyboardType="number-pad"
-                    returnKeyType="next"
-                    returnKeyLabel="next"
-                    onSubmitEditing={() => handleSubmit()}
-                  />
-                  <SpaceBetween>
-                    <TextBetween />
-                  </SpaceBetween>
+                  {data.map(item => {
+                    <>
+                      <Input
+                        title="Valor a resgatar"
+                        ref={valorRef}
+                        onChangeText={handleChange('amount')}
+                        onBlur={handleBlur('amount')}
+                        value={values.amount}
+                        error={errors.amount}
+                        touched={touched.amount}
+                        placeholder="Digite o valor que deseja resgatar"
+                        keyboardType="number-pad"
+                        returnKeyType="next"
+                        returnKeyLabel="next"
+                        onSubmitEditing={() => handleSubmit()}
+
+                      />
+                      <SpaceBetween>
+                        <TextBetween />
+                      </SpaceBetween>
+                    </>;
+                  })}
                 </>
               );
             }}
@@ -221,7 +223,7 @@ export const SimulationResgate = ({route, props}) => {
         </Content>
       </Content>
       <Modal visible={confirmationTransation}>
-        {isValid ? (
+        {valorTeste <= values.amount ? (
           <Confirmation />
         ) : (
           <Error closeError={handleCloseConfirmationModal} />

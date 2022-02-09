@@ -35,7 +35,6 @@ export interface InputProps extends RNTextInputProps {
   height?: number;
   width?: number;
   title: string;
-  id: IDProps | string;
 }
 
 const Input = forwardRef<RNTextInput, InputProps>(
@@ -46,7 +45,6 @@ const Input = forwardRef<RNTextInput, InputProps>(
       dark = false,
       marginTop = 0,
       error,
-      id,
       touched,
       showTogglePasswordButton = false,
       ...props
@@ -60,7 +58,7 @@ const Input = forwardRef<RNTextInput, InputProps>(
     );
 
     return (
-      <Container {...{marginTop}} testID={id}>
+      <Container {...{marginTop}}>
         <Title>{title}</Title>
         <InputContainer {...{dark}}>
           {!!icon && <Icon name={icon} />}
