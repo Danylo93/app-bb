@@ -12,13 +12,9 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState, useRef} from 'react';
-import {StatusBar, Modal, Alert, TextInput as RNTextInput} from 'react-native';
-import {yupResolver} from '@hookform/resolvers/yup';
+import {StatusBar, Modal, TextInput as RNTextInput} from 'react-native';
 import * as Yup from 'yup';
-import {useForm} from 'react-hook-form';
 import {useFormik} from 'formik';
-import CurrencyInput from 'react-native-currency-input';
-import {isTemplateLiteral} from '@babel/types';
 import Button from '../../../components/Button';
 import {
   Container,
@@ -37,7 +33,6 @@ import {Error} from '../Error';
 import {HighlightCard} from '../../../components/HighlightCard';
 import {api} from '../../../services/api';
 import Input from '../../../components/Input';
-import {formatNumber} from '../../../services/number';
 
 interface FormData {
   amount: number;
@@ -182,28 +177,24 @@ export const SimulationResgate = ({route, props}) => {
                       (route.params.saldoTotal * item.percentual) / 100,
                     ).toFixed(2)}`.toString()}
                   />
-                  {data.map(item => {
-                    <>
-                      <Input
-                        title="Valor a resgatar"
-                        ref={valorRef}
-                        onChangeText={handleChange('amount')}
-                        onBlur={handleBlur('amount')}
-                        value={values.amount}
-                        error={errors.amount}
-                        touched={touched.amount}
-                        placeholder="Digite o valor que deseja resgatar"
-                        keyboardType="number-pad"
-                        returnKeyType="next"
-                        returnKeyLabel="next"
-                        onSubmitEditing={() => handleSubmit()}
 
-                      />
-                      <SpaceBetween>
-                        <TextBetween />
-                      </SpaceBetween>
-                    </>;
-                  })}
+                  <Input
+                    title="Valor a resgatar"
+                    ref={valorRef}
+                    onChangeText={handleChange('amount')}
+                    onBlur={handleBlur('amount')}
+                    value={values.amount}
+                    error={errors.amount}
+                    touched={touched.amount}
+                    placeholder="Digite o valor que deseja resgatar"
+                    keyboardType="number-pad"
+                    returnKeyType="next"
+                    returnKeyLabel="next"
+                    onSubmitEditing={() => handleSubmit()}
+                  />
+                  <SpaceBetween>
+                    <TextBetween />
+                  </SpaceBetween>
                 </>
               );
             }}

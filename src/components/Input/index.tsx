@@ -21,10 +21,6 @@ import {
   Title,
 } from './styles';
 
-interface IDProps {
-  id: [];
-}
-
 
 export interface InputProps extends RNTextInputProps {
   icon?: string;
@@ -76,12 +72,6 @@ const Input = forwardRef<RNTextInput, InputProps>(
             secureTextEntry={secureTextEntryEnabled}
             {...props}
           />
-          {showTogglePasswordButton && (
-            <TouchableOpacity
-              onPress={() => setSecureTextEntryEnabled((p: any) => !p)}>
-              <ButtonIcon name={!secureTextEntryEnabled ? 'eye-off' : 'eye'} />
-            </TouchableOpacity>
-          )}
           {touched && (
             <CheckIconValidation
               name={!error ? 'check' : 'alert-circle-check-outline'}

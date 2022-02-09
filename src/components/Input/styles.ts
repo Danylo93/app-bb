@@ -21,7 +21,7 @@ export const Container = styled.View`
 
 export const InputContainer = styled.View<InputContainerProps>`
   border-width: 1px;
-  border-color: ${({theme}) => theme.Palette.divider};
+  border-color: ${({theme}) => theme.Palette.common.white};
   border-radius: ${1}px;
   height: ${RFPercentage(5)}px;
   justify-content: center;
