@@ -23,16 +23,29 @@ interface Props {
   closeError: () => void;
 }
 
-export const Error = ({closeError}: Props) => {
+export const Error = ({route, closeError}: Props): JSX.Element => {
   const [acoes, setAcoes] = useState([]);
+  const [formatado, setFormatado] = useState('');
 
   const acao = async () => {
     const dataAcoes = await api.get('/');
     const obj = JSON.parse(
       JSON.stringify(dataAcoes.data.response.data.listaInvestimentos[0].acoes),
     );
+
+    const saldo = JSON.parse(
+      JSON.stringify(
+        dataAcoes.data.response.data.listaInvestimentos[0].saldoTotal,
+      ),
+    );
+
     console.log(`Modal de erro:`, obj);
+    console.log(
+      `Valor:`,
+      dataAcoes.data.response.data.listaInvestimentos[0].saldoTotal,
+    );
     setAcoes(obj);
+    setFormatado(saldo);
   };
 
   useEffect(() => {
@@ -52,7 +65,8 @@ export const Error = ({closeError}: Props) => {
               return (
                 <>
                   <TextValueResgate>
-                    {item.nome} Valor máximo de R${item.percentual}
+                    {item.nome} Valor máximo de R${' '}
+                    {Number((item.percentual * formatado) / 100).toFixed(2)}
                   </TextValueResgate>
                 </>
               );

@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Resgate} from '../screens/Home/Resgate/index';
 import {SimulationResgate} from '../screens/Home/SimulationResgate/index';
+import {Demo} from '../screens/Home/Teste';
 
 const AppStack = createStackNavigator();
 

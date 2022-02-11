@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable no-bitwise */
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable @typescript-eslint/ban-types */
@@ -33,6 +34,7 @@ import {Error} from '../Error';
 import {HighlightCard} from '../../../components/HighlightCard';
 import {api} from '../../../services/api';
 import Input from '../../../components/Input';
+import {Teste} from '../Teste2/index';
 
 interface FormData {
   amount: number;
@@ -181,9 +183,9 @@ export const SimulationResgate = ({route, props}) => {
                   <Input
                     title="Valor a resgatar"
                     ref={valorRef}
-                    onChangeText={handleChange('amount')}
+                    onChangeText={index => setFieldValue('amount', [index])}
                     onBlur={handleBlur('amount')}
-                    value={values.amount}
+                    value={(values.amount, [index])}
                     error={errors.amount}
                     touched={touched.amount}
                     placeholder="Digite o valor que deseja resgatar"
@@ -214,10 +216,10 @@ export const SimulationResgate = ({route, props}) => {
         </Content>
       </Content>
       <Modal visible={confirmationTransation}>
-        {valorTeste <= values.amount ? (
-          <Confirmation />
-        ) : (
+        {!isValid ? (
           <Error closeError={handleCloseConfirmationModal} />
+        ) : (
+          <Confirmation />
         )}
       </Modal>
     </Container>

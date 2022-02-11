@@ -1,11 +1,9 @@
 import styled, {css} from 'styled-components/native';
 import {RFValue} from 'react-native-responsive-fontsize';
 
-interface IDProps {
-  id: '1' | '2' | '3' | '4';
-}
 
-export const Container = styled.View<IDProps>`
+
+export const Container = styled.View`
   background-color: ${({theme}) => theme.Palette.common.white};
   height: ${RFValue(40)}px;
   width: 100%;

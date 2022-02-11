@@ -67,25 +67,6 @@ export const Resgate = ({route}) => {
       ),
     );
 
-    const carencia = obj.filter(item => typeof obj[item] === 'boolean');
-    // console.log('filtrando os dados:', carencia);
-
-    // console.log('----------------Indicador de Carencia ------------------');
-    // console.log(
-    //   `Indicador de Carencia:`,
-    //   dataAcoes.data.response.data.listaInvestimentos[0].indicadorCarencia ===
-    //     'N',
-    // );
-
-    // console.log('----------------Objeto inteiro ------------------');
-    // console.log(`Todas as açoes do Investimento:`, obj);
-
-    // if (carencia === false) {
-    //   console.log('Vai aparecer somente os rendimentos sem carencia');
-    // } else {
-    //   console.log('Vai aparecer somente os rendimentos com carencia');
-    // }
-
     setData(obj);
   };
 
@@ -123,6 +104,7 @@ export const Resgate = ({route}) => {
                         nome: item.nome,
                         saldoTotal: item.saldoTotal,
                         data,
+                        listResgate,
                       })
                     }
                   />

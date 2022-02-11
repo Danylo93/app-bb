@@ -10,7 +10,7 @@ interface Props {
 
 export function HighlightCard({title, value}: Props) {
   return (
-    <Container >
+    <Container>
       <Wrapper>
         <Title>{title}</Title>
         <Value>{value}</Value>

@@ -13,7 +13,7 @@ export default {
       disabled: '#6D7882',
     },
     opacity: {
-      main: 'rgba(1, 1, 1, 0.3)',
+      main: 'rgba(0, 0, 0, 0.2)',
     },
     success: {
       main: '#4CB983',
